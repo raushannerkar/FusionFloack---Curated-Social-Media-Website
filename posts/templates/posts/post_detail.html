@@ -1,0 +1,15 @@
+{% extends "posts/base.html" %}
+{% block content %}
+    <div class="posts">
+            <div class="post  container">
+                <img class ="rounded-circle article-img" src = "{{object.user.profile.profile_pic.url }}">
+                <a class ="text-left" href="#">{{ object.user }}</a>
+                <div class="post-image">
+                    <img src="{{ object.content }}" alt="Post Image">
+                </div>
+                <p>Caption: {{ object.caption }}</p>
+                <p>Date Posted: {{ object.date_posted|date:"d F Y" }}</p>
+            </div>
+    </div>
+{% endblock %}      
+  

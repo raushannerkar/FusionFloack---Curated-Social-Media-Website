@@ -1,0 +1,32 @@
+
+{% extends "posts/base.html" %}
+{% load customfilters %}
+{% block content %}
+    <div class="posts">
+        {% for post in posts %}
+            <div class="post  container">
+                <img class="rounded-circle article-img" src="{{ post.user.profile.profile_pic.url }}">
+                <a class="text-left" href="{% url 'profile2' post.user.username %}">{{ post.user }}</a>
+                <div class="post-media">
+                    <div class="post-image">
+                        {% if post.content.url|lower|slice:"-4:" == '.jpg' or post.content.url|lower|slice:"-5:" == '.jpeg' or post.content.url|lower|slice:"-4:" == '.png' or post.content.url|lower|slice:"-4:" == '.gif' %}
+                            <img src="{{ post.content.url }}" alt="Post Image">
+                        {% else %}
+                            <video width=100% height=100% loop controls>
+                                <source src="{{ post.content.url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {% endif %}
+                    </div>
+                </div>
+                <button class="like-btn {% if user.is_authenticated and post|is_liked_by_user:user %}liked{% endif %}" data-post-id="{{ post.id }}">
+                    <span class="like-emoji">🎉</span>
+                </button>
+                <span class="likes-count">{{ post.likes.count }}</span>            
+                <p>{{ post.user }} <span class="caption-username">{{ post.caption }}</span></p>
+                
+                <small><small>Date Posted: {{ post.date_posted|date:"d F Y" }}</small></small>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

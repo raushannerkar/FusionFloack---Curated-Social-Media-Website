@@ -1,0 +1,15 @@
+{% extends "posts/base.html" %}
+{% block content %}
+    <div class="user-profile">
+        <h2>Your Profile</h2>
+        <h3>Your Posts</h3>
+        {% for post in user_posts %}
+            <div class="post">
+                <img src="{{ post.content.url }}" alt="Post Image">
+                <p>{{ post.caption }}</p>
+            </div>
+        {% empty %}
+            <p>You haven't posted anything yet.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

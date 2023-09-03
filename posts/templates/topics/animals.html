@@ -1,0 +1,13 @@
+{% extends "posts/tempbase.html" %}
+{% load customfilters %}
+{% block css %}
+<style>
+  body {
+    {% comment %} background: url({% static 'logo.jpg' %}) no-repeat fixed; {% endcomment %}
+    background-size: cover;
+  }
+</style>
+{% endblock %}
+{% block content%}
+   <h2 class = "text-center">Welcome to the world of the fauna!</h2>
+{% endblock %}

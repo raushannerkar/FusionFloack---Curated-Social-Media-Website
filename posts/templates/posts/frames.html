@@ -1,0 +1,21 @@
+{% extends "posts/base.html" %}
+{% block content %}
+<h2 class ="text-center">What's your mood today!</h2>
+<hr>
+<div class ="container">
+<div class = "zones">
+    <a href = "{%url 'animals-posts'%}"><div class ="zone green">🐾</div></a>
+    <a href = "{%url 'art-posts'%}"><div class ="zone">🎨</div>
+    <a href = "{%url 'automobiles-posts'%}"><div class ="zone">🚗</div>
+    <a href = "{%url 'clips-posts'%}"><div class ="zone">🎬</div>
+    <a href = "{%url 'entertainment-posts'%}"><div class ="zone">🎥</div>
+    <a href = "{%url 'humour-posts'%}"><div class ="zone">😄</div>
+    <a href = "{%url 'money-posts'%}"><div class ="zone">💰</div>
+    <a href = "{%url 'motivational-posts'%}"><div class ="zone">🌟</div>
+    <a href = "{%url 'nature-posts'%}"><div class ="zone">🌿</div>
+    <a href = "{%url 'news-posts'%}"> <div class ="zone">📰</div>
+    <a href = "{%url 'sports-posts'%}"><div class ="zone">⚽</div>
+    <a href = "{%url 'technology-posts'%}"><div class ="zone">🔌</div>
+</div>
+</div>
+{% endblock %}

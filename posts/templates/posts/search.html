@@ -1,0 +1,26 @@
+{% extends "posts/base.html" %}
+{% block content %}
+{% if username_profile_list %}
+    {% for user_profile in username_profile_list %}
+        <div class="posts">
+            <div class="content-section container">
+                <div class="media">
+                    <img class="rounded-circle account-img" src="{{ user_profile.profile_pic.url }}">
+                    <div class="media-body">
+                        <h2 class="account-heading">
+                            <a href="{% url 'profile2' user_profile.user.username %}">
+                                <b>{{ user_profile.user }}</b>
+                            </a>
+                        </h2>
+                        <p>{{ user_profile.email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="content-section container">
+        <h2>No matching users found</h2>
+    </div>
+{% endif %}
+{% endblock %}

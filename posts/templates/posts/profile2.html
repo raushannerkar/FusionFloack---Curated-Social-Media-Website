@@ -1,0 +1,73 @@
+{% extends "posts/base.html" %}
+{% load customfilters %}
+{% block content %}
+    <div class="posts">
+        <div class="content-section container">
+            <div class="media">
+                <img class="rounded-circle account-img" src="{{profile_user.profile.profile_pic.url}}">
+                <div class="media-body">
+                    <h2 class="account-heading">{{profile_user.username}}</h2>
+                    <p class="text-secondary">{{ profile_user.email }}</p>
+                    <p><a href="{{ profile_user.profile.get_followers_url }}">Followers: {{ profile_user.profile.followers_count }}</a></p>
+                     <!--Form to handle follow/unfollow action -->
+                    <form id="follow-form" action="{% url 'follow' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_id" value="{{ profile_user.id }}">
+                        {% if request.user != profile_user and profile_user|is_following:request.user %}
+                            <button type="submit" class="followbtn">Unfollow</button>
+                        {% elif request.user != profile_user %}
+                            <button type="submit" class="followbtn">Follow</button>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="container posimg">
+            <div class="grid">
+                {% for post in user_posts %}
+                    <div class="grid-item">
+                        {% if post.content.url|lower|slice:"-4:" == '.jpg' or post.content.url|lower|slice:"-5:" == '.jpeg' or post.content.url|lower|slice:"-4:" == '.png' or post.content.url|lower|slice:"-4:" == '.gif' %}
+                            <a href="{{ post.content.url }}">
+                                <img src="{{ post.content.url }}" alt="Post Image">
+                            </a>
+                        {% else %}
+                            <video width=100% height=auto loop controls>
+                                <source src="{{ post.content.url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const followForm = document.getElementById("follow-form");
+        const followButton = followForm.querySelector("button");
+
+        followForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            const formData = new FormData(followForm);
+
+            fetch(followForm.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": formData.get("csrfmiddlewaretoken")
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the button text based on the response
+                followButton.textContent = data.buttonText;
+            })
+            .catch(error => {
+                console.error("An error occurred:", error);
+            });
+        });
+    });
+</script>
