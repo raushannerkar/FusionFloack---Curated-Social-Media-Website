@@ -1,1 +1,2 @@
-# social_media
+# About
+A social media website that has a special feature of viewing curated content. Here users can add posts on the normal feed as well as add posts to the curated feed where people can view whatever content that they like, for example if somebody wants to view only animal related content they can click on the frames tab button where it will take them to a page where they can select their content that they want to view and only animal related content will be displayed to the user.
